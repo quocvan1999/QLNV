@@ -6,12 +6,25 @@ import {
   resetInput,
   deleteApiDataAsync,
   putApiDataAsync,
+  stringToSlug,
 } from "../assets/util/method.js";
 
 let BASE_USR =
   "https://6675ff6aa8d2b4d072f21f4a.mockapi.io/Api/DanhSachNhanVien";
 let arrInput = document.querySelectorAll("#frmThemNhanVien .inputData");
 let thisID = 0;
+
+document.querySelector("#searchName").oninput = async function () {
+  let searchName = document.querySelector("#searchName").value;
+  let danhSachNhanVien = await getApiDataAsync(BASE_USR);
+  let arrNhanVien = danhSachNhanVien.filter((nv) => {
+    return (
+      stringToSlug(nv.loaiNhanVien).indexOf(stringToSlug(searchName)) !== -1
+    );
+  });
+
+  renderTableNhanVien(arrNhanVien);
+};
 
 document.querySelector("#btnThem").onclick = function () {
   resetInput(arrInput);
