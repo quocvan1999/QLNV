@@ -1,41 +1,47 @@
 export class NhanVien {
   taiKhoan = "";
-  hoVaTen = "";
+  hoTen = "";
   email = "";
   matKhau = "";
   ngayLam = "";
   luongCoBan = 0;
   chucVu = "";
-  gioLam = "";
-  tongLuong = 0;
-  xepLoai = "";
+  gioLam = 0;
 
-  tinhLuong() {
+  tongLuong = function () {
+    let luongCB = +this.luongCoBan;
+    let tongLuong = 0;
+
     switch (this.chucVu) {
       case "Sếp":
-        this.tongLuong = +this.luongCoBan * 3;
+        tongLuong = luongCB * 3;
         break;
       case "Trưởng phòng":
-        this.tongLuong = +this.luongCoBan * 2;
+        tongLuong = luongCB * 2;
         break;
       case "Nhân viên":
-        this.tongLuong = +this.luongCoBan;
+        tongLuong = luongCB;
       default:
         break;
     }
-  }
 
-  tinhXepLoai() {
-    let newGioLam = +this.gioLam;
+    return tongLuong;
+  };
 
-    if (newGioLam >= 192) {
-      this.xepLoai = "Xuất sắc";
-    } else if (newGioLam >= 176) {
-      this.xepLoai = "Giỏi";
-    } else if (newGioLam >= 160) {
-      this.xepLoai = "Khá";
-    } else if (newGioLam <= 160) {
-      this.xepLoai = "Trung bình";
+  loaiNhanVien = function () {
+    let gLam = +this.gioLam;
+    let xepLoai = "";
+
+    if (gLam >= 192) {
+      xepLoai = "Xuất sắc";
+    } else if (gLam >= 176) {
+      xepLoai = "Giỏi";
+    } else if (gLam >= 160) {
+      xepLoai = "Khá";
+    } else if (gLam <= 160) {
+      xepLoai = "Trung bình";
     }
-  }
+
+    return xepLoai;
+  };
 }

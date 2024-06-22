@@ -29,67 +29,48 @@ export function stringToSlug(title) {
   return slug;
 }
 
-/**
- * Hàm set dữ liệu lên local storage
- * @param {*} data hữ liệu cần đẩy lên
- * @param {*} nameData tên dữ liệu
- */
-export function setLocalStorage(data, nameData) {
-  localStorage.setItem(nameData, JSON.stringify(data));
+export async function getApiDataAsync(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data;
 }
 
-/**
- * Hàm láy dữ liệu từ local storage về
- * @param {*} nameData tên dữ liệu cần lấy
- * @returns trả về dữ liệu lấy từ local storage
- */
-export function getLocalStorage(nameData) {
-  return JSON.parse(localStorage.getItem(nameData));
+export async function getApiDataIDAsync(url, id) {
+  const response = await fetch(`${url}/${id}`);
+  const data = await response.json();
+
+  return data;
 }
 
-export function tinhLuong(luongCoBan, chucVu) {
-  let tongLuong = 0;
-  switch (chucVu) {
-    case "Sếp":
-      tongLuong = luongCoBan * 3;
-      break;
-    case "Trưởng phòng":
-      tongLuong = luongCoBan * 2;
-      break;
-    case "Nhân viên":
-      tongLuong = +luongCoBan;
-    default:
-      break;
+export async function postApiDataAsync(url, data) {
+  await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function putApiDataAsync(url, id, data) {
+  await fetch(`${url}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteApiDataAsync(url, id) {
+  await fetch(`${url}/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export function resetInput(arrElement) {
+  for (const input of arrElement) {
+    input.value = "";
   }
-
-  return tongLuong;
-}
-
-export function xepLoai(gioLam) {
-  let xepLoai = "";
-  let newGioLam = +gioLam;
-
-  if (newGioLam >= 192) {
-    xepLoai = "Xuất sắc";
-  } else if (newGioLam >= 176) {
-    xepLoai = "Giỏi";
-  } else if (newGioLam >= 160) {
-    xepLoai = "Khá";
-  } else if (newGioLam <= 160) {
-    xepLoai = "Trung bình";
-  }
-
-  return xepLoai;
-}
-
-export function setId(arr) {
-  let id = 0;
-
-  if (arr.length === 0) {
-    id = 0;
-  } else {
-    id = arr[arr.length - 1].maNhanVien + 1;
-  }
-
-  return id;
 }
