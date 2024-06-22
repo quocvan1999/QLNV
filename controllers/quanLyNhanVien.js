@@ -13,6 +13,11 @@ let BASE_USR =
 let arrInput = document.querySelectorAll("#frmThemNhanVien .inputData");
 let thisID = 0;
 
+document.querySelector("#btnThem").onclick = function () {
+  resetInput(arrInput);
+  displayButton("1");
+};
+
 document.querySelector("#btnThemNV").onclick = async function () {
   let newNhanVien = new NhanVien();
 
@@ -59,12 +64,8 @@ window.renderTableNhanVien = function (arrNhanVien) {
         <td>${nhanVien.tongLuong}</td>
         <td>${nhanVien.loaiNhanVien}</td>
         <td>
-          <button onclick="xoaNhanVien('${
-            nhanVien.id
-          }')" class="btn btn-danger">Xoá</button>
-          <button onclick="suaNhanVien('${
-            nhanVien.id
-          }')" class="btn btn-black mt-2" data-toggle="modal" data-target="#myModal">Sửa</button>
+          <button onclick="xoaNhanVien('${nhanVien.id}')" class="btn btn-danger">Xoá</button>
+          <button onclick="suaNhanVien('${nhanVien.id}')" class="btn btn-black mt-2" data-toggle="modal" data-target="#myModal">Sửa</button>
         </td>
       </tr>
     `;
@@ -79,6 +80,8 @@ window.xoaNhanVien = async function (id) {
 };
 
 window.suaNhanVien = async function (id) {
+  displayButton("2");
+
   let nhanVien = await getApiDataIDAsync(BASE_USR, id);
 
   for (const key in nhanVien) {
@@ -95,5 +98,25 @@ window.getDataApi = async function () {
 
   renderTableNhanVien(data);
 };
+
+function displayButton(type) {
+  let btnThem = document.querySelector("#btnThemNV");
+  let btnLuu = document.querySelector("#btnCapNhat");
+
+  switch (type) {
+    // Form thêm nhân viên
+    case "1":
+      btnThem.style.display = "block";
+      btnLuu.style.display = "none";
+      break;
+    // Form cập nhật nhân viên
+    case "2":
+      btnThem.style.display = "none";
+      btnLuu.style.display = "block";
+      break;
+    default:
+      break;
+  }
+}
 
 getDataApi();
