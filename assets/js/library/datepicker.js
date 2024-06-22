@@ -1,6 +1,6 @@
 // Hien thi button
 $(function () {
-  $("#datepicker").datepicker({
+  $("#ngayLam").datepicker({
     showOn: "button",
     buttonImage: "./assets/img/calendar-icon.png",
     buttonImageOnly: true,
@@ -24,5 +24,5 @@ $(document).ready(function () {
     day +
     "/" +
     d.getFullYear();
-  $("#datepicker").val(output);
+  $("#ngayLam").val(output);
 });
