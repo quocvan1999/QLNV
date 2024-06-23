@@ -15,15 +15,19 @@ let arrInput = document.querySelectorAll("#frmThemNhanVien .inputData");
 let thisID = 0;
 
 document.querySelector("#searchName").oninput = async function () {
-  let searchName = document.querySelector("#searchName").value;
-  let danhSachNhanVien = await getApiDataAsync(BASE_USR);
-  let arrNhanVien = danhSachNhanVien.filter((nv) => {
-    return (
-      stringToSlug(nv.loaiNhanVien).indexOf(stringToSlug(searchName)) !== -1
-    );
-  });
+  try {
+    let searchName = document.querySelector("#searchName").value;
+    let danhSachNhanVien = await getApiDataAsync(BASE_USR);
+    let arrNhanVien = danhSachNhanVien.filter((nv) => {
+      return (
+        stringToSlug(nv.loaiNhanVien).indexOf(stringToSlug(searchName)) !== -1
+      );
+    });
 
-  renderTableNhanVien(arrNhanVien);
+    renderTableNhanVien(arrNhanVien);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 document.querySelector("#btnThem").onclick = function () {
@@ -32,35 +36,43 @@ document.querySelector("#btnThem").onclick = function () {
 };
 
 document.querySelector("#btnThemNV").onclick = async function () {
-  let newNhanVien = new NhanVien();
+  try {
+    let newNhanVien = new NhanVien();
 
-  for (const key in newNhanVien) {
-    if (typeof newNhanVien[key] !== "function") {
-      newNhanVien[key] = document.querySelector(`#${key}`).value;
-    } else {
-      newNhanVien[key] = newNhanVien[key]();
+    for (const key in newNhanVien) {
+      if (typeof newNhanVien[key] !== "function") {
+        newNhanVien[key] = document.querySelector(`#${key}`).value;
+      } else {
+        newNhanVien[key] = newNhanVien[key]();
+      }
     }
-  }
 
-  await postApiDataAsync(BASE_USR, newNhanVien);
-  getDataApi();
-  resetInput(arrInput);
+    await postApiDataAsync(BASE_USR, newNhanVien);
+    getDataApi();
+    resetInput(arrInput);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 document.querySelector("#btnCapNhat").onclick = async function () {
-  let newNhanVien = new NhanVien();
+  try {
+    let newNhanVien = new NhanVien();
 
-  for (const key in newNhanVien) {
-    if (typeof newNhanVien[key] !== "function") {
-      newNhanVien[key] = document.querySelector(`#${key}`).value;
-    } else {
-      newNhanVien[key] = newNhanVien[key]();
+    for (const key in newNhanVien) {
+      if (typeof newNhanVien[key] !== "function") {
+        newNhanVien[key] = document.querySelector(`#${key}`).value;
+      } else {
+        newNhanVien[key] = newNhanVien[key]();
+      }
     }
-  }
 
-  await putApiDataAsync(BASE_USR, thisID, newNhanVien);
-  getDataApi();
-  resetInput(arrInput);
+    await putApiDataAsync(BASE_USR, thisID, newNhanVien);
+    getDataApi();
+    resetInput(arrInput);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 window.renderTableNhanVien = function (arrNhanVien) {
@@ -88,28 +100,40 @@ window.renderTableNhanVien = function (arrNhanVien) {
 };
 
 window.xoaNhanVien = async function (id) {
-  await deleteApiDataAsync(BASE_USR, id);
-  getDataApi();
+  try {
+    await deleteApiDataAsync(BASE_USR, id);
+    getDataApi();
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 window.suaNhanVien = async function (id) {
-  displayButton("2");
+  try {
+    displayButton("2");
 
-  let nhanVien = await getApiDataIDAsync(BASE_USR, id);
+    let nhanVien = await getApiDataIDAsync(BASE_USR, id);
 
-  for (const key in nhanVien) {
-    if (key != "tongLuong" && key != "loaiNhanVien" && key != "id") {
-      document.querySelector(`#${key}`).value = nhanVien[key];
+    for (const key in nhanVien) {
+      if (key != "tongLuong" && key != "loaiNhanVien" && key != "id") {
+        document.querySelector(`#${key}`).value = nhanVien[key];
+      }
     }
-  }
 
-  thisID = id;
+    thisID = id;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 window.getDataApi = async function () {
-  let data = await getApiDataAsync(BASE_USR);
+  try {
+    let data = await getApiDataAsync(BASE_USR);
 
-  renderTableNhanVien(data);
+    renderTableNhanVien(data);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 function displayButton(type) {
