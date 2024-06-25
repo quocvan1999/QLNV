@@ -1,5 +1,15 @@
 import { NhanVien } from "../models/NhanVien.js";
 import {
+  kiemTraRong,
+  kiemTraDoDai,
+  kiemTraChu,
+  kiemTraEmail,
+  kiemTraMatKhau,
+  kiemTraNgay,
+  kiemTraGiaTri,
+  kiemTraChucVu,
+} from "../assets/util/validation.js";
+import {
   getApiDataAsync,
   getApiDataIDAsync,
   postApiDataAsync,
@@ -12,7 +22,12 @@ import {
 let BASE_USR =
   "https://6675ff6aa8d2b4d072f21f4a.mockapi.io/Api/DanhSachNhanVien";
 let arrInput = document.querySelectorAll("#frmThemNhanVien .inputData");
+let arrTB = document.querySelectorAll(".text-tb");
 let thisID = 0;
+
+document.querySelector("#btnDong").onclick = function () {
+  resetTb(arrTB);
+};
 
 document.querySelector("#searchName").oninput = async function () {
   try {
@@ -31,6 +46,7 @@ document.querySelector("#searchName").oninput = async function () {
 };
 
 document.querySelector("#btnThem").onclick = function () {
+  resetTb(arrTB);
   resetInput(arrInput);
   displayButton("1");
 };
@@ -47,8 +63,16 @@ document.querySelector("#btnThemNV").onclick = async function () {
       }
     }
 
+    let valid = validationFormInput(newNhanVien);
+
+    if (!valid) {
+      return;
+    }
+
     await postApiDataAsync(BASE_USR, newNhanVien);
+    $("#myModal").modal("hide");
     getDataApi();
+    document.querySelectorAll(".text-tb").innerHTML = "";
     resetInput(arrInput);
   } catch (e) {
     console.log(e);
@@ -67,7 +91,14 @@ document.querySelector("#btnCapNhat").onclick = async function () {
       }
     }
 
+    let valid = validationFormInput(newNhanVien);
+
+    if (!valid) {
+      return;
+    }
+
     await putApiDataAsync(BASE_USR, thisID, newNhanVien);
+    $("#myModal").modal("hide");
     getDataApi();
     resetInput(arrInput);
   } catch (e) {
@@ -110,6 +141,7 @@ window.xoaNhanVien = async function (id) {
 
 window.suaNhanVien = async function (id) {
   try {
+    resetTb(arrTB);
     displayButton("2");
 
     let nhanVien = await getApiDataIDAsync(BASE_USR, id);
@@ -153,6 +185,63 @@ function displayButton(type) {
       break;
     default:
       break;
+  }
+}
+
+function validationFormInput(arr) {
+  let valid = true;
+  let arrInput = document.querySelectorAll(
+    "#frmThemNhanVien input[data-typeNull=null]"
+  );
+  let { taiKhoan, hoTen, email, matKhau, ngayLam, luongCoBan, chucVu, gioLam } =
+    arr;
+
+  for (const input of arrInput) {
+    valid &= kiemTraRong(input.value, `#tb-${input.id}`, input.placeholder);
+  }
+
+  if (kiemTraRong(taiKhoan, "#tb-taiKhoan", "Tài khoản")) {
+    valid &= kiemTraDoDai(taiKhoan, "#tb-taiKhoan", "Tài khoản", 4, 6);
+  }
+
+  if (kiemTraRong(hoTen, "#tb-hoTen", "Họ tên")) {
+    valid &= kiemTraChu(hoTen, "#tb-hoTen", "Họ tên");
+  }
+
+  if (kiemTraRong(email, "#tb-email", "Email")) {
+    valid &= kiemTraEmail(email, "#tb-email", "Email");
+  }
+
+  if (kiemTraRong(matKhau, "#tb-matKhau", "Mật khẩu")) {
+    valid &= kiemTraMatKhau(matKhau, "#tb-matKhau", "Mật khẩu");
+  }
+
+  if (kiemTraRong(ngayLam, "#tb-ngayLam", "Ngày làm")) {
+    valid &= kiemTraNgay(ngayLam, "#tb-ngayLam", "Ngày làm");
+  }
+
+  if (kiemTraRong(luongCoBan, "#tb-luongCoBan", "Lương cơ bản")) {
+    valid &= kiemTraGiaTri(
+      luongCoBan,
+      "#tb-luongCoBan",
+      "Lương cơ bản",
+      1e6,
+      2e7
+    );
+  }
+
+  if (kiemTraRong(gioLam, "#tb-gioLam", "Giờ làm")) {
+    valid &= kiemTraGiaTri(gioLam, "#tb-gioLam", "Giờ làm", 80, 200);
+  }
+
+  valid &= kiemTraChucVu(chucVu, "#tb-chucVu", "Chức vụ");
+
+  return valid;
+}
+
+function resetTb(arr) {
+  for (const tb of arr) {
+    tb.innerHTML = "";
   }
 }
 

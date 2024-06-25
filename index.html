@@ -188,98 +188,96 @@
 
 					<form role="form" id="frmThemNhanVien">
 
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
-								<input type="text" name="taiKhoan" id="taiKhoan" class="form-control input-sm inputData"
-									placeholder="Tài khoản">
+								<input data-typeNull="null" type="text" name="taiKhoan" id="taiKhoan"
+									class="form-control input-sm inputData" placeholder="Tài khoản">
 							</div>
-
-							<span class="sp-thongbao text-danger" id="tbTKNV"></span>
+							<span class="text-danger text-tb" id="tb-taiKhoan"></span>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
 								</div>
-								<input type="name" name="hoTen" id="hoTen" class="form-control input-sm inputData"
-									placeholder="Họ và tên">
+								<input data-typeNull="null" type="name" name="hoTen" id="hoTen"
+									class="form-control input-sm inputData" placeholder="Họ và tên">
 							</div>
-							<span class="sp-thongbao" id="tbTen"></span>
+							<span class="text-danger text-tb" id="tb-hoTen"></span>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 								</div>
-								<input type="email" name="email" id="email" class="form-control input-sm inputData"
-									placeholder="Email">
+								<input data-typeNull="null" string" type="email" name="email" id="email"
+									class="form-control input-sm inputData" placeholder="Email">
 							</div>
 
-							<span class="sp-thongbao" id="tbEmail"></span>
+							<span class="text-danger text-tb" id="tb-email"></span>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input type="password" name="matKhau" id="matKhau"
+								<input data-typeNull="null" type="password" name="matKhau" id="matKhau"
 									class="form-control input-sm inputData" placeholder="Mật khẩu">
 							</div>
-							<span class="sp-thongbao" id="tbMatKhau"></span>
+							<span class="text-danger text-tb" id="tb-matKhau"></span>
 						</div>
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 								</div>
-								<input type="text" name="ngayLam" id="ngayLam" class="form-control inputData"
-									placeholder="Ngày làm">
+								<input data-typeNull="null" type="text" name="ngayLam" id="ngayLam"
+									class="form-control inputData" placeholder="Ngày làm">
 							</div>
 
-							<span class="sp-thongbao" id="tbNgay"></span>
+							<span class="text-danger text-tb" id="tb-ngayLam"></span>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-money" aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="luongCoBan" id="luongCoBan"
+								<input data-typeNull="null" type="text" name="luongCoBan" id="luongCoBan"
 									class="form-control input-sm inputData" placeholder="Lương cơ bản">
 							</div>
-							<span class="sp-thongbao" id="tbLuongCB"></span>
+							<span class="text-danger text-tb" id="tb-luongCoBan"></span>
 						</div>
-						<div class="form-group">
+						<div class="form-group mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
 								</div>
 								<select class="form-control inputData" id="chucVu" name="chucVu">
-									<option>Chọn chức vụ</option>
 									<option value="Sếp">Sếp</option>
 									<option value="Trưởng phòng">Trưởng phòng</option>
 									<option value="Nhân viên">Nhân viên</option>
 								</select>
 							</div>
 
-							<span class="sp-thongbao" id="tbChucVu"></span>
+							<span class="text-danger text-tb" id="tb-chucVu"></span>
 						</div>
-						<div class="form-group">
+						<div class="form-group  mb-0">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-clock-o"
 											aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="gioLam" id="gioLam" class="form-control input-sm inputData"
-									placeholder="Giờ làm">
+								<input data-typeNull="null" type="text" name="gioLam" id="gioLam"
+									class="form-control input-sm inputData" placeholder="Giờ làm">
 							</div>
-							<span class="sp-thongbao" id="tbGiolam"></span>
+							<span class="text-danger text-tb" id="tb-gioLam"></span>
 						</div>
 
 					</form>
@@ -287,10 +285,9 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer" id="modal-footer">
-					<button id="btnThemNV" type="button" class="btn btn-success" data-dismiss="modal">Thêm người
+					<button id="btnThemNV" type="button" class="btn btn-success">Thêm người
 						dùng</button>
-					<button id="btnCapNhat" type="button" class="btn btn-success" data-toggle="modal"
-						data-target="#myModal">Cập nhật</button>
+					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
 					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 				</div>
 
